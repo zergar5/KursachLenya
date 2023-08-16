@@ -10,7 +10,7 @@ using KursachLenya.TwoDimensional.Assembling.Global;
 
 namespace KursachLenya.Time;
 
-public class TimeDisсreditor
+public class TimeDisсretizer
 {
     private GlobalVector PreviousSolution => _timeSolutions[_currentTimeLayer - 1];
     private GlobalVector TwoLayersBackSolution => _timeSolutions[_currentTimeLayer - 2];
@@ -42,7 +42,7 @@ public class TimeDisсreditor
     private ThirdCondition[]? _thirdConditions;
     private ISolver<SymmetricSparseMatrix> _solver;
 
-    public TimeDisсreditor
+    public TimeDisсretizer
     (
         GlobalAssembler<Node2D> globalAssembler,
         FirstConditionProvider firstBoundaryProvider,
@@ -60,14 +60,14 @@ public class TimeDisсreditor
         _inserter = inserter;
     }
 
-    public TimeDisсreditor SetGrid(Grid<Node2D> grid)
+    public TimeDisсretizer SetGrid(Grid<Node2D> grid)
     {
         _grid = grid;
 
         return this;
     }
 
-    public TimeDisсreditor SetTimeLayers(double[] timeLayers)
+    public TimeDisсretizer SetTimeLayers(double[] timeLayers)
     {
         _timeLayers = timeLayers;
         _timeSolutions = new GlobalVector[_timeLayers.Length];
@@ -75,7 +75,7 @@ public class TimeDisсreditor
         return this;
     }
 
-    public TimeDisсreditor SetInitialSolution(Func<Node2D, double, double> u)
+    public TimeDisсretizer SetInitialSolution(Func<Node2D, double, double> u)
     {
         var initialSolution = new GlobalVector(_grid.Nodes.Length);
         var currentTime = CurrentTime;
@@ -91,28 +91,28 @@ public class TimeDisсreditor
         return this;
     }
 
-    public TimeDisсreditor SetFirstConditions(FirstCondition[] conditions)
+    public TimeDisсretizer SetFirstConditions(FirstCondition[] conditions)
     {
         _firstConditions = conditions;
 
         return this;
     }
 
-    public TimeDisсreditor SetSecondConditions(SecondCondition[] conditions)
+    public TimeDisсretizer SetSecondConditions(SecondCondition[] conditions)
     {
         _secondConditions = conditions;
 
         return this;
     }
 
-    public TimeDisсreditor SetThirdConditions(ThirdCondition[] conditions)
+    public TimeDisсretizer SetThirdConditions(ThirdCondition[] conditions)
     {
         _thirdConditions = conditions;
 
         return this;
     }
 
-    public TimeDisсreditor SetSolver(ISolver<SymmetricSparseMatrix> solver)
+    public TimeDisсretizer SetSolver(ISolver<SymmetricSparseMatrix> solver)
     {
         _solver = solver;
 

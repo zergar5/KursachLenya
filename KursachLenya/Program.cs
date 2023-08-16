@@ -77,7 +77,7 @@ var thirdBoundaryProvider = new ThirdConditionProvider(grid, materialFactory, u,
 var lltPreconditioner = new LLTPreconditioner();
 var solver = new MCG(lltPreconditioner, new LLTSparse(lltPreconditioner));
 
-var timeDiscreditor = new TimeDisсreditor(globalAssembler, firstBoundaryProvider,
+var timeDiscreditor = new TimeDisсretizer(globalAssembler, firstBoundaryProvider,
     new GaussExcluder(), secondBoundaryProvider, thirdBoundaryProvider, inserter);
 
 var solutions =
